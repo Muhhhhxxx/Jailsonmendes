@@ -1,6 +1,6 @@
 import robocode.*;
 
-public class MeuRobo extends AdvancedRobot {
+public class Jailsonmendes extends AdvancedRobot {
 
     public void run() {
         setColors(java.awt.Color.white, java.awt.Color.white, java.awt.Color.white); // Define a cor branca
