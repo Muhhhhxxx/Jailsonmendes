@@ -1,0 +1,34 @@
+import robocode.*;
+
+public class MeuRobo extends AdvancedRobot {
+
+    public void run() {
+        setColors(java.awt.Color.white, java.awt.Color.white, java.awt.Color.white); // Define a cor branca
+        setAdjustGunForRobotTurn(true);
+        setAdjustRadarForGunTurn(true);
+        
+        while (true) {
+            turnRadarRight(360); // Gira o radar para procurar por inimigos
+        }
+    }
+
+    public void onScannedRobot(ScannedRobotEvent e) {
+        // Gira o corpo e a arma em direção ao inimigo
+        turnGunRight(normalizeBearing(getHeading() + e.getBearing() - getGunHeading()));
+        fire(3); // Dispara contra o inimigo com força máxima
+        
+        // Desvia dos tiros
+        if (e.getDistance() < 200) {
+            setAhead(50); // Move para frente se o inimigo estiver muito próximo
+        } else {
+            setBack(50); // Move para trás se o inimigo estiver mais distante
+        }
+    }
+
+    // Normaliza o ângulo para ficar entre -180 e 180 graus
+    double normalizeBearing(double angle) {
+        while (angle > 180) angle -= 360;
+        while (angle < -180) angle += 360;
+        return angle;
+    }
+}
